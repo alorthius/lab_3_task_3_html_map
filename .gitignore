@@ -1,1 +1,3 @@
 my_venv
+__pycache__/
+json_response.txt
