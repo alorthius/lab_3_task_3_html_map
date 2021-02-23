@@ -2,7 +2,6 @@
 GitHub link: https://github.com/alorthius/lab_3_task_3_html_map
 """
 import requests
-import json
 import folium
 
 from flask import Flask, redirect, render_template, request
@@ -112,6 +111,10 @@ def index():
 
 @app.route("/register", methods=["POST"])
 def register():
+    """
+    Ask user for the username and his bearer token. Display friends
+    of the user on the html map.
+    """
     username = request.form.get("username")
     token = request.form.get("token")
     if not username or not token:
@@ -132,8 +135,6 @@ def register():
 if __name__ == '__main__':
     geolocator = Nominatim(user_agent="friends_map")
     geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
-    token = 'AAAAAAAAAAAAAAAAAAAAAD4uNAEAAAAACMARcBiqeRczBEyrTUmCBBcahlM%3DjwmyjufJqiajtYee3mEYsF2LEjSz5CVnnA5PtdF8ey1kk1Jb0S'
-    username = 'Alorthius'
 
     app.debug = True
     app.run()
