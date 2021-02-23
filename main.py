@@ -1,3 +1,6 @@
+"""
+GitHub link: https://github.com/alorthius/lab_3_task_3_html_map
+"""
 import requests
 import json
 import folium
@@ -10,6 +13,10 @@ from geopy.exc import GeocoderUnavailable
 
 
 def find_users_friends_info(bearer_token: str, user_name: str) -> dict:
+    """
+    Find users's friends by its user_name using bearer_token.
+    Return a dictionary with info about friends profiles.
+    """
     base_url = 'https://api.twitter.com/'
     search_url = '{}1.1/friends/list.json'.format(base_url)
 
@@ -25,6 +32,10 @@ def find_users_friends_info(bearer_token: str, user_name: str) -> dict:
 
 
 def find_friends_locations(friends_dict: dict) -> dict:
+    """
+    Find in the dictionary the location, name and username of the friend.
+    Return a dictionary, where the location is key, and names are values.
+    """
     locations_dict = {}
     for user_info in friends_dict['users']:
         user_name = []
@@ -38,6 +49,9 @@ def find_friends_locations(friends_dict: dict) -> dict:
 
 
 def find_coordinates(locations_dict: dict) -> dict:
+    """
+    For each friend find coordinates of the location in their profiles.
+    """
     coordinates_dict = {}
 
     for user_location, user_info in locations_dict.items():
@@ -51,6 +65,10 @@ def find_coordinates(locations_dict: dict) -> dict:
 
 
 def create_html_map(coordinates_dict: dict):
+    """
+    Dicplay all friends locations on the map.
+    Return it as an html.
+    """
     map = folium.Map(zoom_start=2)
     fg = folium.FeatureGroup(name="My map")
 
