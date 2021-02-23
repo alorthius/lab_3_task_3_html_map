@@ -89,7 +89,9 @@ def create_html_map(coordinates_dict: dict):
     map.save('Your_map_here.html')
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
+    geolocator = Nominatim(user_agent="my")
+    geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
 
 
 #     app.debug = True
