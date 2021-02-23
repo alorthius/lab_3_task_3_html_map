@@ -20,7 +20,6 @@ def register():
         return render_template("failure.html")
     return render_template("success.html")
 
-bearer_token = 'AAAAAAAAAAAAAAAAAAAAAD4uNAEAAAAACMARcBiqeRczBEyrTUmCBBcahlM%3DjwmyjufJqiajtYee3mEYsF2LEjSz5CVnnA5PtdF8ey1kk1Jb0S'
 
 def find_users_friends_info(bearer_token: str, user_name: str):
     base_url = 'https://api.twitter.com/'
