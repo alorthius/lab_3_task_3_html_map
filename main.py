@@ -16,7 +16,12 @@ def find_users_friends_info(bearer_token: str, user_name: str) -> dict:
     """
     Find users's friends by its user_name using bearer_token.
     Return a dictionary with info about friends profiles.
+
+    >>> find_users_friends_info('token', ['fire', 'water'])
     """
+    if not isinstance(bearer_token, str) or not isinstance(user_name, str):
+        return None
+
     base_url = 'https://api.twitter.com/'
     search_url = '{}1.1/friends/list.json'.format(base_url)
 
@@ -35,7 +40,12 @@ def find_friends_locations(friends_dict: dict) -> dict:
     """
     Find in the dictionary the location, name and username of the friend.
     Return a dictionary, where the location is key, and names are values.
+
+    >>> find_friends_locations(['just some list'])
     """
+    if not isinstance(friends_dict, dict):
+        return None
+
     locations_dict = {}
     for user_info in friends_dict['users']:
         user_name = []
@@ -51,7 +61,12 @@ def find_friends_locations(friends_dict: dict) -> dict:
 def find_coordinates(locations_dict: dict) -> dict:
     """
     For each friend find coordinates of the location in their profiles.
+
+    >>> find_coordinates([{'Lviv': ('alorthius', 'alorthius')}])
     """
+    if not isinstance(locations_dict, dict):
+        return None
+
     coordinates_dict = {}
 
     for user_location, user_info in locations_dict.items():
@@ -68,7 +83,12 @@ def create_html_map(coordinates_dict: dict):
     """
     Dicplay all friends locations on the map.
     Return it as an html.
+
+    >>> create_html_map([(19.11, 78.11), (11.09, 72.12)])
     """
+    if not isinstance(coordinates_dict, dict):
+        return None
+
     map = folium.Map(zoom_start=2)
     fg = folium.FeatureGroup(name="My map")
 
@@ -112,6 +132,8 @@ def register():
 if __name__ == '__main__':
     geolocator = Nominatim(user_agent="friends_map")
     geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
+    token = 'AAAAAAAAAAAAAAAAAAAAAD4uNAEAAAAACMARcBiqeRczBEyrTUmCBBcahlM%3DjwmyjufJqiajtYee3mEYsF2LEjSz5CVnnA5PtdF8ey1kk1Jb0S'
+    username = 'Alorthius'
 
     app.debug = True
     app.run()
